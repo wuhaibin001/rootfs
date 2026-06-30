@@ -1,0 +1,6 @@
+#!/bin/sh
+# 挂载必要的虚拟文件系统
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+# 自动创建和挂载 /dev 目录（解决你日志中 devtmpfs 报错的问题）
+mount -t devtmpfs devtmpfs /dev
