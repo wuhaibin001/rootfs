@@ -1,6 +1,6 @@
 #!/bin/bash
 ROOT_DIR=`pwd`/root
-OUTPUT_DIR=/tmp/rootfs_output/
+OUTPUT_DIR=/tmp/rootfs_output
 
 rm -rf ${OUTPUT_DIR}
 mkdir ${OUTPUT_DIR}
@@ -9,7 +9,7 @@ mkdir ${OUTPUT_DIR}
 #    -comp xz 可换成 gzip / lz4 / lzo，需与内核 CONFIG_SQUASHFS_* 一致
 #    -noappend 生成全新镜像
 #    -all-root 强制所有文件属主为 root（避免权限问题）
-mksquashfs ${ROOT_DIR} ${OUTPUT_DIR}/rootfs.squashfs \
+/usr/bin/mksquashfs ${ROOT_DIR} ${OUTPUT_DIR}/rootfs.squashfs \
     -comp xz \
     -noappend \
     -all-root
@@ -25,3 +25,4 @@ mkimage -A mips -O linux -T ramdisk -C none \
 rm -f ${OUTPUT_DIR}/rootfs.squashfs
 
 echo "uramdisk 已生成：${OUTPUT_DIR}/uramdisk.image.gz"
+cp /tmp/rootfs_output/uramdisk.image.gz . -af
